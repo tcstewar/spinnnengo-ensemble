@@ -19,6 +19,8 @@ int c_main( void )
   spin1_callback_on( MC_PACKET_RECEIVED, incoming_spike_callback, -1 );
   spin1_callback_on( TIMER_TICK, timer_callback, 2 );
 
+  io_printf( IO_STD, "Starting.\n" );
+
   // Go
   spin1_start( );
 }

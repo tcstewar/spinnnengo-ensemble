@@ -7,6 +7,7 @@ void incoming_spike_callback( uint key, uint payload )
    * - Add the value of the payload (cast to accum) to the received value for
    *   that dimension.
    */
+  io_printf( IO_STD, "Received packet: Payload: 0x%08x\n", payload );
 }
 
 /*
