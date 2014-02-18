@@ -1,5 +1,18 @@
 #include "spin-nengo-ensemble.h"
 
+uint n_input_dimensions = 0;
+value_t * ibuf_accumulator = 0,
+        * ibuf_filtered = 0;
+
+value_t * value_gains = 0;
+current_t * i_bias;
+
+accum * encoders;
+accum * decoders;
+
+value_t * t_rc;
+value_t * t_ref;
+
 int c_main( void )
 {
   /* Initialise system as in the standard harness, see JK re correctly
@@ -25,20 +38,9 @@ int c_main( void )
   spin1_start( );
 }
 
-//! Initialise the accumulators for incoming dimension packets
-void initialise_incoming_value_accums( void )
+//! Initialise buffers and values
+void initialise_buffers( void )
 {
-  // TODO
-}
-
-//! Initialise the buffers for encoded values
-void initialise_incoming_value_buffers( void )
-{
-  // TODO
-}
-
-//! Initialise the buffers for outgoing decoded values
-void initialise_outgoing_value_accums( void )
-{
-  // TODO
+  ibuf_accumulator = spin1_malloc( sizeof( value_t ) * n_input_dimensions );
+  ibuf_filtered = spin1_malloc( sizeof( value_t ) * n_input_dimensions );
 }
