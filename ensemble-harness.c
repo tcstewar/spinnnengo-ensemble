@@ -1,21 +1,27 @@
 #include "spin-nengo-ensemble.h"
 
-// Parameters
-uint n_input_dimensions;  //! Number of input dimensions D_{in}
-uint n_output_dimensions; //! Number of output dimensions D_{out}
-uint n_neurons;           //! Number of neurons N
-value_t t_rc;             //! Membrane time constant
-value_t t_ref;            //! Refactory period 
+uint n_input_dimensions, n_output_dimensions, n_neurons, t_ref, *v_ref_voltage;
+current_t *i_bias;
+accum *encoders, *decoders;
+value_t *ibuf_accumulator, *ibuf_filtered, t_rc, filter, dt;
 
-current_t * i_bias;       //! Population biases : 1 x N
+void test_initialise( void )
+{
+  // For some testing, we'll stick some sensible values in...
+  dt = 0.001k;
+  filter = 0.990049833749k;
+  n_input_dimensions = 1;
+  n_neurons = 1;
+}
 
-accum * encoders; //! Encoder values : N x D_{in} (including gains)
-accum * decoders; //! Decoder values : N x SUM( d in D_{outs} )
-
-// Buffers
-value_t * ibuf_accumulator; //! Input buffers : 1 x D_{in}
-value_t * ibuf_filtered;    //! Filtered input buffers : 1 x D_{in}
-voltage_t * v_voltages;     //! Neuron voltages
+void test_initialise_2( void )
+{
+  i_bias[0] = 0.5k;
+  encoders[0] = 0.5k;
+  v_ref_voltage[0] = 0x00000000;
+  t_rc = 0.02k;
+  t_ref = 5;
+}
 
 int c_main( void )
 {
@@ -28,18 +34,17 @@ int c_main( void )
    *   - Any work to move neuron parameters into the correct locations.
    */
 
-  // Setup timer tick
-  // **TODO** base on defined machine time step
-  spin1_set_timer_tick( 1000 );
-
   // Setup callbacks, etc.
   spin1_callback_on( MC_PACKET_RECEIVED, incoming_spike_callback, -1 );
   spin1_callback_on( TIMER_TICK, timer_callback, 2 );
 
   // Setup buffers, etc.
+  test_initialise( );
   initialise_buffers( );
+  test_initialise_2( );
 
-  // Go
+  // Setup timer tick, start
+  spin1_set_timer_tick( 1000 );
   spin1_start( );
 }
 
@@ -54,5 +59,5 @@ void initialise_buffers( void )
   // Input buffers / voltages
   ibuf_accumulator = spin1_malloc( sizeof(value_t) * n_input_dimensions );
   ibuf_filtered = spin1_malloc( sizeof(value_t) * n_input_dimensions );
-  v_voltages = spin1_malloc( sizeof(voltage_t) * n_neurons );
+  v_ref_voltage = spin1_malloc( sizeof(uint) * n_neurons );
 }
