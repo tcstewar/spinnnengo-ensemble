@@ -66,7 +66,7 @@ static inline void set_neuron_voltage( uint n, voltage_t v )
 static inline uint neuron_refractory( uint n )
   { return ( v_ref_voltage[n] & 0xf0000000 ) >> 28; };
 
-//! Put the given neuron in a refractory state
+//! Put the given neuron in a refractory state (zero voltage, set timer)
 static inline void set_neuron_refractory( uint n )
   { v_ref_voltage[n] = t_ref << 28; };
 

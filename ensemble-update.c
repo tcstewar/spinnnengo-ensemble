@@ -48,6 +48,9 @@ void timer_callback( uint arg0, uint arg1 )
       v_voltage = 0.0k;
     }
 
+    // Save state
+    set_neuron_voltage( n, v_voltage );
+
     // If this neuron has fired then process
     if( v_voltage > 1.0k ) {
       // Zero the voltage, set the refractory time
@@ -60,11 +63,6 @@ void timer_callback( uint arg0, uint arg1 )
       for( uint d = 0; d < n_output_dimensions; d++ ) {
         output_values[d] += neuron_decoder( n, d );
       }
-
-      // TODO - Transmitting value packets
     }
-
-    // Save state
-    set_neuron_voltage( n, v_voltage );
   }
 }
