@@ -57,6 +57,11 @@ void timer_callback( uint arg0, uint arg1 )
                  n, neuron_refractory( n ), v_ref_voltage[n] );
 
       // Update the output values
+      for( uint d = 0; d < output_dimensions; d++ ) {
+        output_values[d] += neuron_decoder( n, d );
+      }
+
+      // TODO - Transmitting value packets
     }
 
     // Save state

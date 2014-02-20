@@ -53,8 +53,8 @@ extern value_t * output_values;    //! Output buffers : 1 x D_{out}
 static inline accum neuron_encoder( uint n, uint d )
   { return encoders[ n * n_input_dimensions + d ]; };
 
-static inline accum neuron_decoder( uint n, uint block_start, uint d )
-  { return decoders[ n * n_output_dimensions + block_start + d ]; };
+static inline accum neuron_decoder( uint n, uint d )
+  { return decoders[ n * n_output_dimensions + d ]; };
 
 // -- Voltages and refractory periods
 //! Get the membrane voltage for the given neuron
