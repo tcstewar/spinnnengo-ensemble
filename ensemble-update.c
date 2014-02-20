@@ -54,7 +54,6 @@ void timer_callback( uint arg0, uint arg1 )
     // If this neuron has fired then process
     if( v_voltage > 1.0k ) {
       // Zero the voltage, set the refractory time
-      v_voltage = 0.0k;
       set_neuron_refractory( n );
       io_printf( IO_STD, "%d SPIKED.  %d ticks till active. v_ = 0x%08x\n",
                  n, neuron_refractory( n ), v_ref_voltage[n] );
