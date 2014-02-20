@@ -5,7 +5,7 @@ uint n_input_dimensions, n_output_dimensions, n_outputs, n_neurons, dt, t_ref,
 current_t *i_bias;
 accum *encoders, *decoders;
 cm_index_t *decoder_indexes;
-value_t *ibuf_accumulator, *ibuf_filtered, t_rc, filter;
+value_t *ibuf_accumulator, *ibuf_filtered, *output_values, t_rc, filter;
 
 void test_initialise( void )
 {
@@ -63,4 +63,7 @@ void initialise_buffers( void )
   ibuf_accumulator = spin1_malloc( sizeof(value_t) * n_input_dimensions );
   ibuf_filtered = spin1_malloc( sizeof(value_t) * n_input_dimensions );
   v_ref_voltage = spin1_malloc( sizeof(uint) * n_neurons );
+
+  // Output buffers
+  decoded_values = spin1_malloc( sizeof(value_t) * n_output_dimensions );
 }

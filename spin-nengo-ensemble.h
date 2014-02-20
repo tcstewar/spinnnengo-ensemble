@@ -45,6 +45,7 @@ extern accum * decoders; //! Decoder values : N x SUM( d in D_{outs} )
 extern value_t * ibuf_accumulator; //! Input buffers : 1 x D_{in}
 extern value_t * ibuf_filtered;    //! Filtered input buffers : 1 x D_{in}
 extern uint * v_ref_voltage;       //! 4b refractory state, remainder voltages
+extern value_t * output_values;    //! Output buffers : 1 x D_{out}
 
 /* Static inline access functions ********************************************/
 // -- Encoder(s) and decoder(s)
