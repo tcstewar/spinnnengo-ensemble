@@ -1,6 +1,6 @@
 #include "spin-nengo-ensemble.h"
 
-uint n_input_dimensions, n_output_dimensions, n_outputs, n_neurons, dt, t_ref,
+uint n_input_dimensions, n_output_dimensions, n_neurons, dt, t_ref,
      *v_ref_voltage, *output_keys;
 current_t *i_bias;
 accum *encoders, *decoders;

@@ -21,7 +21,6 @@ void initialise_buffers( void );
 /* Parameters ****************************************************************/
 extern uint n_input_dimensions;      //! Number of input dimensions D_{in}
 extern uint n_output_dimensions;     //! Number of output dimensions D_{out}
-extern uint n_outputs;               //! Number of decoders
 extern uint * output_keys;           //! Output dimension keys 1 x D_{out}
 extern uint n_neurons;               //! Number of neurons N
 
