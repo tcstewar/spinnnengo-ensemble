@@ -18,17 +18,11 @@ void incoming_spike_callback( uint key, uint payload );
 /* Initialisation functions **************************************************/
 void initialise_buffers( void );
 
-/* Concatenated matrix utilities *********************************************/
-typedef struct cm_index {
-  //! For indexing elements in a concatenated matrix.
-  uint start, length;
-} cm_index_t;
-
 /* Parameters ****************************************************************/
 extern uint n_input_dimensions;      //! Number of input dimensions D_{in}
 extern uint n_output_dimensions;     //! Number of output dimensions D_{out}
 extern uint n_outputs;               //! Number of decoders
-extern cm_index_t * decoder_indexes; //! Indexing for decoders
+extern uint * output_aliases;        //! Output dimension aliasing 1 x D_{out}
 extern uint n_neurons;               //! Number of neurons N
 
 extern uint dt;                      //! Machine time step      [useconds]
