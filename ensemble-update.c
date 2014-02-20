@@ -29,12 +29,12 @@ void timer_callback( uint arg0, uint arg1 )
     // dimension packet.
     if( n_current_output_dimension < n_output_dimensions
      && n % neurons_per_packet == 0 ) {
-      // TODO: Transmit the packet with the appropriate routing key
-      // //  ( decoder routing key & 0xffffff00 )
-      // //| ( output_alias[ n_current_output_dimension ] & 0xff )
-      // spin1_send_mc_packet(
-      //  KEY, output_values[ n_current_output_dimension, WITH_PAYLOAD
-      // );
+      // Transmit the packet with the appropriate key
+      spin1_send_mc_packet(
+        output_keys[ n_current_output_dimension ],
+        output_values[ n_current_output_dimension ],
+        WITH_PAYLOAD
+      );
 
       // Zero the output buffer and increment the output dimension counter
       output_values[ n_current_output_dimension ] = 0;

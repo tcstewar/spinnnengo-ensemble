@@ -1,7 +1,7 @@
 #include "spin-nengo-ensemble.h"
 
 uint n_input_dimensions, n_output_dimensions, n_outputs, n_neurons, dt, t_ref,
-     *v_ref_voltage, *output_aliases;
+     *v_ref_voltage, *output_keys;
 current_t *i_bias;
 accum *encoders, *decoders;
 value_t *ibuf_accumulator, *ibuf_filtered, *output_values, t_rc, filter,
@@ -56,7 +56,7 @@ void initialise_buffers( void )
   // Encoders / decoders / bias
   encoders = spin1_malloc( sizeof(accum) * n_input_dimensions * n_neurons );
   decoders = spin1_malloc( sizeof(accum) * n_output_dimensions * n_neurons );
-  output_aliases = spin1_malloc( sizeof( uint ) * n_output_dimensions );
+  output_keys = spin1_malloc( sizeof( uint ) * n_output_dimensions );
   i_bias = spin1_malloc( sizeof(current_t) * n_neurons );
 
   // Input buffers / voltages
