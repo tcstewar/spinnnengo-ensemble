@@ -1,14 +1,15 @@
 #include "spin-nengo-ensemble.h"
 
-uint n_input_dimensions, n_output_dimensions, n_neurons, t_ref, *v_ref_voltage;
+uint n_input_dimensions, n_output_dimensions, n_neurons, dt, t_ref,
+     *v_ref_voltage;
 current_t *i_bias;
 accum *encoders, *decoders;
-value_t *ibuf_accumulator, *ibuf_filtered, t_rc, filter, dt;
+value_t *ibuf_accumulator, *ibuf_filtered, t_rc, filter;
 
 void test_initialise( void )
 {
   // For some testing, we'll stick some sensible values in...
-  dt = 0.001k;
+  dt = 1000;
   filter = 0.990049833749k;
   n_input_dimensions = 1;
   n_neurons = 1;
@@ -44,7 +45,7 @@ int c_main( void )
   test_initialise_2( );
 
   // Setup timer tick, start
-  spin1_set_timer_tick( 1000 );
+  spin1_set_timer_tick( dt );
   spin1_start( );
 }
 
