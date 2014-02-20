@@ -10,6 +10,9 @@ void timer_callback( uint arg0, uint arg1 )
   // Values used below
   current_t i_membrane;
   voltage_t v_delta, v_voltage;
+
+  uint neurons_per_packet = n_output_dimensions / n_neurons;
+  uint n_current_output_dimension = 0;
   
   // For every input dimension, decay the input value and zero the accumulator.
   for( uint d = 0; d < n_input_dimensions; d++ ) {
@@ -22,6 +25,22 @@ void timer_callback( uint arg0, uint arg1 )
 
   // Perform neuron updates, interspersed with decoding and transmitting
   for( uint n = 0; n < n_neurons; n++ ) {
+    // If this neuron is a multiple of neurons_per_packet then transmit a
+    // dimension packet.
+    if( n_current_output_dimension < n_output_dimensions
+     && n % neurons_per_packet == 0 ) {
+      // TODO: Transmit the packet with the appropriate routing key
+      // //  ( decoder routing key & 0xffffff00 )
+      // //| ( output_alias[ n_current_output_dimension ] & 0xff )
+      // spin1_send_mc_packet(
+      //  KEY, output_values[ n_current_output_dimension, WITH_PAYLOAD
+      // );
+
+      // Zero the output buffer and increment the output dimension counter
+      output_values[ n_current_output_dimension ] = 0;
+      n_current_output_dimension++;
+    }
+
     // If this neuron is refractory then skip any further processing
     if( neuron_refractory( n ) != 0 ) {
       decrement_neuron_refractory( n );
