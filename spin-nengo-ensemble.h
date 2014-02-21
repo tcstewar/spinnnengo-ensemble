@@ -5,6 +5,7 @@
 
 #include "spin1_api.h"
 #include "stdfix-full-iso.h"
+#include "ensemble-data.h"
 
 typedef accum value_t;
 typedef accum current_t;

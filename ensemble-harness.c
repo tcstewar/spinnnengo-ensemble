@@ -7,6 +7,7 @@ accum *encoders, *decoders;
 value_t *ibuf_accumulator, *ibuf_filtered, *output_values, t_rc, filter,
         *decoded_values;
 
+/*
 void test_initialise( void )
 {
   // For some testing, we'll stick some sensible values in...
@@ -24,6 +25,7 @@ void test_initialise_2( void )
   t_rc = 0.02k;
   t_ref = 5;
 }
+*/
 
 int c_main( void )
 {
@@ -41,9 +43,15 @@ int c_main( void )
   spin1_callback_on( TIMER_TICK, timer_callback, 2 );
 
   // Setup buffers, etc.
-  test_initialise( );
+  // test_initialise( );
+  uint *address = (uint *) system_load_sram();
+  copy_in_system_region( address );
   initialise_buffers( );
-  test_initialise_2( );
+  copy_in_bias( address );
+  copy_in_encoders( address );
+  copy_in_decoders( address );
+  copy_in_decoder_keys( address );
+  // test_initialise_2( );
 
   // Setup timer tick, start
   spin1_set_timer_tick( dt );
