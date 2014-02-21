@@ -47,15 +47,20 @@ int c_main( void )
   uint *address = (uint *) system_load_sram();
   copy_in_system_region( address );
   initialise_buffers( );
-  copy_in_bias( address );
+/*copy_in_bias( address );
   copy_in_encoders( address );
   copy_in_decoders( address );
-  copy_in_decoder_keys( address );
+  copy_in_decoder_keys( address );*/
   // test_initialise_2( );
+  io_printf( IO_STD, "N: %d, D_in: %d, D_out: %d, dt: %d, t_rc: %f,"
+             " t_ref: %d steps, filter: %f\n",
+             n_neurons, n_input_dimensions, n_output_dimensions, dt,
+             t_rc, t_ref, filter
+  );
 
   // Setup timer tick, start
-  spin1_set_timer_tick( dt );
-  spin1_start( );
+/*spin1_set_timer_tick( dt );
+  spin1_start( );*/
 }
 
 //! Initialise buffers and values
